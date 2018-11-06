@@ -3,8 +3,6 @@
 
 #include "type.h"
 
-
-
 Status Pass(PosType pos);
 void FootPrint(PosType pos);
 PosType NextPos(PosType pos, int di);
