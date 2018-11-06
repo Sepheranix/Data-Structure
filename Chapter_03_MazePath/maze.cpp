@@ -42,37 +42,36 @@ void MarkPrint(PosType pos)
 
 Status MazePath(PosType start, PosType end)
 {
-	/*ÈôÃÔ¹¬mazeÖĞ´æÔÚ´ÓÈë¿Ústartµ½³ö¿ÚendµÄÍ¨µÀ£¬ÔòÇóµÃÒ»Ìõ´æ·ÅÔÚÕ»ÖĞ£¨´ÓÕ»µ×µ½Õ»¶¥£©£¬
-	²¢ÇÒ·µ»ØTURE£»·ñÔò·µ»ØFALSE*/
-	//InitStack(S);
+	/*è‹¥è¿·å®«mazeä¸­å­˜åœ¨ä»å…¥å£startåˆ°å‡ºå£endçš„é€šé“ï¼Œåˆ™æ±‚å¾—ä¸€æ¡å­˜æ”¾åœ¨æ ˆä¸­ï¼ˆä»æ ˆåº•åˆ°æ ˆé¡¶ï¼‰ï¼Œ
+	å¹¶ä¸”è¿”å›TUREï¼›å¦åˆ™è¿”å›FALSE*/
 	SElemType e;
-	PosType curpos = start;		//Éè¶¨¡°µ±Ç°Î»ÖÃ¡±Îª¡°Èë¿ÚÎ»ÖÃ¡±
-	int curstep = 1;			//Ì½Ë÷µÚÒ»²½
+	PosType curpos = start;		//è®¾å®šâ€œå½“å‰ä½ç½®â€ä¸ºâ€œå…¥å£ä½ç½®â€
+	int curstep = 1;			//æ¢ç´¢ç¬¬ä¸€æ­¥
 	do {
-		if (Pass(curpos)) {	//µ±Ç°Î»ÖÃ¿ÉÒÔÍ¨¹ı£¬¼´ÊÇÎ´Ôø×ßµ½¹ı£¨µÚÒ»´Î×ßµ½£©µÄÍ¨µÀ¿é
-			FootPrint(curpos);	//ÁôÏÂ×ã¼£
+		if (Pass(curpos)) {	//å½“å‰ä½ç½®å¯ä»¥é€šè¿‡ï¼Œå³æ˜¯æœªæ›¾èµ°åˆ°è¿‡ï¼ˆç¬¬ä¸€æ¬¡èµ°åˆ°ï¼‰çš„é€šé“å—
+			FootPrint(curpos);	//ç•™ä¸‹è¶³è¿¹
 			e = { curstep, curpos, 1 };
-			Push(S, e);		//¼ÓÈëÂ·¾¶
+			Push(S, e);		//åŠ å…¥è·¯å¾„
 			if (curpos.col == end.col && curpos.row == curpos.row) {
-				//µ½´ïÖÕµã£¨³ö¿Ú£©
-				printf_s("Ò»Ìõ¿ÉĞĞµÄÂ·¾¶ÈçÏÂ£º\n");
+				//åˆ°è¾¾ç»ˆç‚¹ï¼ˆå‡ºå£ï¼‰
+				printf_s("ä¸€æ¡å¯è¡Œçš„è·¯å¾„å¦‚ä¸‹ï¼š\n");
 				StackTraverse(S, print_path);
 				return TRUE;
 			}	
-			curpos = NextPos(curpos, 1);	//ÏÂÒ»Î»ÖÃÊÇµ±Ç°Î»ÖÃµÄ¶«ÁÚ
-			curstep++;		//Ì½Ë÷ÏÂÒ»²½
+			curpos = NextPos(curpos, 1);	//ä¸‹ä¸€ä½ç½®æ˜¯å½“å‰ä½ç½®çš„ä¸œé‚»
+			curstep++;		//æ¢ç´¢ä¸‹ä¸€æ­¥
 		}//if
-		else {	//µ±Ç°Î»ÖÃ²»ÄÜÍ¨¹ı
+		else {	//å½“å‰ä½ç½®ä¸èƒ½é€šè¿‡
 			if (!StackEmpty(S)) {
 				Pop(S, e);
 				while (e.di == 4 && !StackEmpty(S)) {
 					MarkPrint(e.seat);
-					Pop(S, e);		//ÁôÏÂ²»ÄÜÍ¨¹ıµÄ±ê¼Ç£¬²¢ÍË»ØÒ»²½
+					Pop(S, e);		//ç•™ä¸‹ä¸èƒ½é€šè¿‡çš„æ ‡è®°ï¼Œå¹¶é€€å›ä¸€æ­¥
 				}//while
 				if (e.di < 4) {
 					e.di++;
-					Push(S, e);		//»»Ò»¸ö·½ÏòÌ½Ë÷
-					curpos = NextPos(e.seat, e.di);	//Éè¶¨µ±Ç°Î»ÖÃÊÇ¸ÃĞÂ·½ÏòÉÏµÄÏàÁÚ¿é
+					Push(S, e);		//æ¢ä¸€ä¸ªæ–¹å‘æ¢ç´¢
+					curpos = NextPos(e.seat, e.di);	//è®¾å®šå½“å‰ä½ç½®æ˜¯è¯¥æ–°æ–¹å‘ä¸Šçš„ç›¸é‚»å—
 				}//if
 			}//if
 		}//else
