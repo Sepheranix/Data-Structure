@@ -6,7 +6,7 @@ int main(int argc, char const *argv[])
 	char chars2[] = "aaab";
 	SString S, T;
 	StrAssign(S, chars);
-	StrAssign(S, chars2);
+	StrAssign(T, chars2);
 	displayStr(S);
 	printf_s("\n");
 	displayStr(T);
