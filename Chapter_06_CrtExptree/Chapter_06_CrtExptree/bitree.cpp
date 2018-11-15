@@ -4,6 +4,8 @@
 
 using namespace std;
 
+
+
 /*基本操作*/
 
 /*按先序顺序输入二叉树中结点的值（一个字符），空格字符表示空树，
@@ -78,125 +80,6 @@ Status PosOrderTraverse(BiTree T, Status(*visit)(TElemType e))
 		return OK;
 }
 
-/*层序遍历二叉树，利用队列实现*/
-Status LevelOrderTraverse(BiTree T, Status(*visit)(TElemType e))
-{
-	BiTree p;
-	LinkQueue Q;
-	InitQueue(Q);
-	p = T;
-	while (p || !QueueEmpty(Q)) {
-		if (p) {
-			visit(p->data);
-			if (p->lchild)
-				EnQueue(Q, p->lchild);
-			if (p->rchild)
-				EnQueue(Q, p->rchild);
-			if (!QueueEmpty(Q))
-				DeQueue(Q, p);
-			else	//队列为空时，退出while循环
-				break;
-		}
-	}
-	return OK;
-}
-
-/*非递归法实现先序遍历二叉树T*/
-Status PreOrderTraverse2(BiTree T, Status(*visit)(TElemType e))
-{
-	SqStack S;
-	BiTree p;
-	InitStack(S);
-	p = T;
-	while (p || !StackEmpty(S)) {
-		if (p) {	//访问根节点，左指针进栈，遍历左子树
-			if (!visit(p->data))
-				return ERROR;
-			Push(S, p);
-			p = p->lchild;
-		}
-		else {		//左指针退栈，遍历右子树
-			Pop(S, p);
-			p = p->rchild;
-		}
-	}
-	return OK;
-}
-
-/*非递归法实现中序遍历二叉树T*/
-Status InOrderTraverse2(BiTree T, Status(*visit)(TElemType e))
-{
-	SqStack S;
-	BiTree p;
-	InitStack(S);
-	Push(S, T);		// 根指针进栈
-	while (!StackEmpty(S)) {
-		while (GetTop(S, p) && p)	//向左走到尽头
-			Push(S, p->lchild);
-		Pop(S, p);		//空指针退栈
-		if (!StackEmpty(S)) {
-			Pop(S, p);
-			if (!visit(p->data))
-				return ERROR;
-			Push(S, p->rchild);
-		} // if
-	} // while
-	return OK;
-}
-
-/*非递归法实现中序遍历二叉树T*/
-Status InOrderTraverse3(BiTree T, Status(*visit)(TElemType e))
-{
-	SqStack S;
-	BiTree p;
-	InitStack(S);
-	p = T;
-	while (p || !StackEmpty(S)) {
-		if (p) {	//根指针进栈，遍历左子树
-			Push(S, p);
-			p = p->lchild;
-		}
-		else {		//根指针退栈，访问根结点，遍历右子树
-			Pop(S, p);
-			if (!visit(p->data))
-				return ERROR;
-			p = p->rchild;
-		}
-	}
-	return OK;
-}
-
-/*非递归法实现后序遍历二叉树T*/
-Status PostOrderTraverse2(BiTree T, Status(*visit)(TElemType e))
-{
-	SqStack S;
-	InitStack(S);
-	BiTree p;
-	int Tag[20];	//用来标志栈
-	int t = 1;		//层数
-	p = T;
-	while (p || !StackEmpty(S)) {
-		while (p) {	//向左走向尽头
-			Push(S, p);
-			p = p->lchild;
-			Tag[t++] = 0;
-		}
-		while (!StackEmpty(S) && Tag[t - 1]) {	//结点标志为1表示右子树已经访问过
-			Pop(S, p);
-			t--;
-			if (!visit(p->data))
-				return ERROR;
-		}
-		if (!StackEmpty(S)) {	//结点标志为0,则访问右子树，并将结点标志为1
-			Tag[t - 1] = 1;
-			GetTop(S, p);
-			p = p->rchild;
-		}
-		else
-			break;
-	}
-	return OK;
-}
 
 /*应用*/
 
@@ -255,3 +138,170 @@ BiTNode *CopyTree(BiTNode *T)
 	return newnode;
 }
 
+
+
+bool IN(char ch)
+{
+	if (ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '(' || ch == ')')
+		return true;
+	else
+		return false;
+}
+
+Status precede(char c1, char c2)
+{
+	switch (c1) {
+	case '+':
+	case '-':
+		switch (c2) {
+		case '+':
+		case '-':
+		case ')':
+		case '#':
+			return TRUE;
+			break;
+		case '*':
+		case '/':
+		case '(':
+			return FALSE;
+			break;
+		default:
+			break;
+		}
+		break;
+	case '*':
+	case '/':
+		switch (c2) {
+		case '+':
+		case '-':
+		case '*':
+		case '/':
+		case ')':
+		case '#':
+			return TRUE;
+			break;
+		case '(':
+			return FALSE;
+			break;
+		default:
+			break;
+		}
+		break;
+	case '(':
+		switch (c2) {
+		case '+':
+		case '-':
+		case '*':
+		case '/':
+		case '(':
+			return FALSE;
+			break;
+		case ')':
+			return FALSE;
+			break;
+		default:
+			break;
+		}
+		break;
+	case ')':
+		switch (c2) {
+		case '+':
+		case '-':
+		case '*':
+		case '/':
+		case ')':
+		case '#':
+			return TRUE;
+			break;
+		default:
+			break;
+		}
+		break;
+	case '#':
+		switch (c2) {
+		case '+':
+		case '-':
+		case '*':
+		case '/':
+		case '(':
+			return FALSE;
+			break;
+		case '#':
+			return FALSE;
+			break;
+		default:
+			break;
+		}
+		break;
+	default:
+		break;
+	}
+}
+
+
+//按照给定表达式建立相应二叉树
+void CrtExptree(BiTree &T, char exp[])
+{
+	char c;
+	Stack<char> S;
+	char *p = exp;
+	char ch = *p;
+	while (!(S.top(c) == '#' && ch == '#')) {
+		if (!IN(ch)) {
+			BiTree t;
+			CrtNode(t, ch);	//建立叶子结点并入栈
+		}
+		else {
+			switch (ch)
+			{
+			case '(':
+				S.push(ch);
+				break;
+			case ')':
+				S.pop(c);
+				while (c != '(') {
+					BiTree t;
+					CrtSubtree(t, c);	//建二叉树并入栈
+					S.pop(c);
+				}
+				break;
+			default:
+				while (!S.top(c) && (precede(c, ch))) {
+					BiTree t;
+					CrtSubtree(t, c);
+					S.pop(c);
+				}
+				if (ch != '#')
+					S.push(ch);
+				break;
+			}
+		}
+		if (ch != '#') {
+			p++;
+			ch = *p;
+		}
+		PTR.pop(T);
+	}
+}
+
+//建立叶子结点
+void CrtNode(BiTree &T, char ch)
+{
+	T = (BiTree)malloc(sizeof(BiTNode));
+	T->data = ch;
+	T->lchild = T->rchild = NULL;
+	PTR.push(T);
+}
+
+//建立子树
+void CrtSubtree(BiTree &T, char e)
+{
+	BiTree lc, rc;
+	T = (BiTree)malloc(sizeof(BiTNode));
+	T->data = e;
+	PTR.pop(lc);
+	T->lchild = lc;
+	PTR.pop(rc);
+	T->rchild = rc;
+	PTR.push(T);
+}
