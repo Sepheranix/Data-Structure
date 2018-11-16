@@ -1,14 +1,14 @@
-/*线索二叉树实现及相关操作*/
+/*绾跨储浜屽弶鏍戝疄鐜板強鐩稿叧鎿嶄綔*/
 
 #ifndef _THRBITREE_H_
 #define _THRBITREE_H_
 
-//------二叉树的二叉线索存储表示------
-typedef enum { Link, Thread } PointerTag;	//Link == 0:指针，Thread == 1:线索
+//------浜屽弶鏍戠殑浜屽弶绾跨储瀛樺偍琛ㄧず------
+typedef enum { Link, Thread } PointerTag;	//Link == 0:鎸囬拡锛孴hread == 1:绾跨储
 typedef struct BiThrNode {
 	TElemType data;
-	struct BiThrNode *lchild, *rchild;	//左右孩子指针
-	PointerTag LTag, RTag;	//左右标志
+	struct BiThrNode *lchild, *rchild;	//宸﹀彸瀛╁瓙鎸囬拡
+	PointerTag LTag, RTag;	//宸﹀彸鏍囧織
 }BiThrNode, *BiThrTree;
 
 Status CreateBiThrTree(BiThrTree &T);
