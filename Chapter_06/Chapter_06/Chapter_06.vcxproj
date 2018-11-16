@@ -117,6 +117,7 @@
   <ItemGroup>
     <ClInclude Include="bitree.h" />
     <ClInclude Include="headers.h" />
+    <ClInclude Include="HuffManTree.h" />
     <ClInclude Include="queue.h" />
     <ClInclude Include="stack.h" />
     <ClInclude Include="thrbitree.h" />
@@ -125,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bitree.cpp" />
+    <ClCompile Include="HuffManTree.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="queue.cpp" />
     <ClCompile Include="stack.cpp" />

@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <iostream>
 
 #include "bitree.h"
@@ -11,5 +12,6 @@
 #include "stack.h"
 #include "thrbitree.h"
 #include "tree.h"
+#include "HuffManTree.h"
 
 #endif // !_HEADERS_H_
