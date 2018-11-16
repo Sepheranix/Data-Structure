@@ -2,11 +2,11 @@
 #define _HUFFMAN_TREE_H_
 
 typedef struct {
-	unsigned int weight;	//È¨ÖØ½áµã
-	unsigned int parent, lchild, rchild;	//¶¨ÒåË«Ç×½áµã£¬×óº¢×Ó£¬ÓÒº¢×ÓÎ»ÖÃ
-}HTNode, *HuffmanTree;	//¶¯Ì¬·ÖÅäÊı×é´æ´¢ºÕ·òÂüÊ÷
+	unsigned int weight;	//æƒé‡ç»“ç‚¹
+	unsigned int parent, lchild, rchild;	//å®šä¹‰åŒäº²ç»“ç‚¹ï¼Œå·¦å­©å­ï¼Œå³å­©å­ä½ç½®
+}HTNode, *HuffmanTree;	//åŠ¨æ€åˆ†é…æ•°ç»„å­˜å‚¨èµ«å¤«æ›¼æ ‘
 
-typedef char * *HuffmanCode;	//¶¯Ì¬·ÖÅäÊı×é´æ´¢ºÕ·òÂü±àÂë±í
+typedef char * *HuffmanCode;	//åŠ¨æ€åˆ†é…æ•°ç»„å­˜å‚¨èµ«å¤«æ›¼ç¼–ç è¡¨
 
 Status HuffmanCoding(HuffmanTree &HT, HuffmanCode &HC, int *w, int n);
 Status Select(HuffmanTree HT, int n, int &s1, int &s2);
