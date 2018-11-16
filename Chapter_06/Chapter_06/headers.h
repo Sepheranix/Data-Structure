@@ -12,6 +12,6 @@
 #include "stack.h"
 #include "thrbitree.h"
 #include "tree.h"
-#include "HuffManTree.h"
+#include "HuffmanTree.h"
 
 #endif // !_HEADERS_H_
