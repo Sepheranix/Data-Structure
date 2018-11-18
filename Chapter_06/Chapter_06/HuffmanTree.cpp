@@ -17,7 +17,7 @@ Status HuffmanCoding(HuffmanTree &HT, HuffmanCode &HC, int *w, int n)
 	m = 2 * n - 1;	//一棵有n个结点的赫夫曼树有2 * n - 1个结点
 	HT = (HuffmanTree)malloc((m + 1) * sizeof(HTNode));	//0号单元未使用
 	for (p = (HT + 1), i = 1; i <= n; ++i, ++p, ++w) 
-		*p = { *w, 0, 0, 0 };	//初始化前n个结点，并将n个权值依次赋给它们
+		*p = { (unsigned)*w, 0, 0, 0 };	//初始化前n个结点，并将n个权值依次赋给它们
 	for (; i <= m; ++i, ++p)
 		*p = { 0, 0, 0, 0 };	//初始化其他向量
 	for (i = n + 1; i <= m; ++i) {	//建赫夫曼树
@@ -45,7 +45,8 @@ Status HuffmanCoding(HuffmanTree &HT, HuffmanCode &HC, int *w, int n)
 				cd[--start] = '1';
 		}
 		HC[i] = (char *)malloc((n - start) * sizeof(char));	//为第i个字符编码分配空间
-		strcpy(HC[i], &cd[start]);
+		
+		strcpy_s(HC[i], n - start +1 ,&cd[start]);
 	}
 	free(cd);
 	cd = NULL;
@@ -102,9 +103,33 @@ void get_HuffmanCode(HuffmanTree HT, HuffmanCode &HC, int n)
 	cdlen = 0;
 	p = 2 * n - 1;	//p指向根节点
 
-	for (i = 1; i <= p; i++)
+	for (i = 1; i <= p; ++i)
 		HT[i].weight = 0;	//遍历赫夫曼树时用作结点状态标志
 	while (p) {
-
+		if (HT[p].weight == 0) {	//向左
+			HT[p].weight = 1;
+			if (HT[p].lchild != 0) {
+				p = HT[p].lchild;
+				cd[cdlen++] = '0';
+			}
+			else if (HT[p].rchild == 0) {
+				HC[p] = (char *)malloc((cdlen + 1) * sizeof(char));
+				cd[cdlen] = '\0';
+				strcpy_s(HC[p], cdlen + 1, cd);
+			}
+		}
+		else if (HT[p].weight == 1) {	//向右
+			HT[p].weight = 2;
+			if (HT[p].rchild != 0) {
+				p = HT[p].rchild;
+				cd[cdlen++] = '1';
+			}
+			else {	//HT[p].weight == 2,退回
+				HT[p].weight = 0;
+				p = HT[p].parent;
+				cdlen--;	//退到父节点，编码长度减一
+			}
+		}
 	}
+	free(cd);
 }
