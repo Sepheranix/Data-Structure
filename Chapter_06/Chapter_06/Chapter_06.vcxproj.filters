@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="bitree.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="headers.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -25,9 +22,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="stack.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="thrbitree.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="type.h">
@@ -39,11 +33,14 @@
     <ClInclude Include="HuffManTree.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="BiTree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ThrBitree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="bitree.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -53,13 +50,16 @@
     <ClCompile Include="stack.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="thrbitree.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="tree.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="HuffManTree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="BiTree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ThrBitree.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
