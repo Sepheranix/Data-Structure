@@ -168,6 +168,43 @@ Status CreateUDG(ALGraph &G)
     return OK;
 }
 
+//创建邻接表存储的有向图
+Status CreateDG(ALGraph &G)
+{
+    int i, j, k, IncInfo;
+    ArcNode *p;
+    VertexType v1, v2;
+    G.kind = DG;    //有向图
+    printf_s("请输入有向图的顶点数、弧数及弧信息标志：");
+    scanf_s("%d %d %d", &G.vexnum, &G.arcnum, &IncInfo);
+    getchar();
+    printf_s("输入%d个顶点：", G.vexnum);
+    for (i = 0; i < G.vexnum; ++i) {
+        scanf_s("%c", &G.vertices[i].data);
+        getchar();
+        G.vertices[i].firstarc = NULL;
+    }
+    printf_s("输入%d条弧（有向）\n", G.arcnum);
+    for (k = 0; k < G.arcnum; ++k) {
+        printf_s("输入第%d条弧：", k + 1);
+        scanf_s("%c %c", &v1, &v2);
+        getchar();
+        i = LocateVex(G, v1);
+        j = LocateVex(G, v2);
+        p = (ArcNode *)malloc(sizeof(ArcNode));
+        if (!p)
+            return ERROR;
+        p->nextarc = G.vertices[i].firstarc;
+        p->adjvex = j;
+        G.vertices[i].firstarc = p;
+        if (IncInfo) {
+            Input(p->info);
+            G.vertices[i].firstarc->info = p->info;
+        }
+    }
+    return OK;
+}
+
 //算法7.3，创建十字链表存储表示的有向图
 Status CreateDG(OLGraph &G)
 {
