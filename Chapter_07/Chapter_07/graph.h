@@ -1,9 +1,12 @@
-#pragma once
+#ifndef _GRAPH_H_
+#define _GRAPH_H_
 
 #define MAX_VERTEX_NUM 20					//图最大顶点个数
 typedef enum {DG, DN, UDG, UDN} GraphKind;			//有向图，有向网，无向图，无向网
 typedef char InfoType;						//弧相关信息的指针
 typedef char VertexType;					//顶点类型
+
+typedef int Status;
 
 //---------- 图的数组(邻接矩阵)存储表示 ------------
 #define INFINITY INT_MAX					//最大值
@@ -81,3 +84,6 @@ Status CreateDG(ALGraph &G);
 int FirstAdjVex(ALGraph G, int v);
 int NextAdjVex(ALGraph G, int v, int w);
 VertexType GetVex(ALGraph G, int v);
+
+
+#endif
