@@ -252,7 +252,7 @@ int FirstAdjVet(ALGraph G, int v)
 {
     if (G.vertices[v].firstarc != NULL)
     {
-        return G.verticese[v].firstarc->adjvex;
+        return G.vertices[v].firstarc->adjvex;
     }
     else
     {
@@ -305,7 +305,7 @@ Status CreateDG(OLGraph &G)
         getchar();
     }
     
-    for( k = 0; k < G.armnum; k++)
+    for( k = 0; k < G.arcnum; k++)
     {
         printf("输入一条弧的起点和终点：");
         scanf("%c %c", &v1, &v2);
