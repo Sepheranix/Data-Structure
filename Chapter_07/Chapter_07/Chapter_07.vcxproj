@@ -115,6 +115,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="cstree.h" />
+    <ClInclude Include="DFS_BFS.h" />
     <ClInclude Include="graph.h" />
     <ClInclude Include="headers.h" />
     <ClInclude Include="queue.h" />
@@ -122,6 +124,8 @@
     <ClInclude Include="type.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cstree.cpp" />
+    <ClCompile Include="DFS_BFS.cpp" />
     <ClCompile Include="graph.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="queue.cpp" />

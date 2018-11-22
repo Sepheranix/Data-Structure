@@ -22,21 +22,23 @@ typedef struct {
 	GraphKind kind;						//图的种类标志
 }MGraph;
 
+
 //------- 图的邻接表（Adjacency List）存储表示 --------
 typedef struct ArcNode {
 	int adjvex;						//该弧所指的顶点的位置
-	struct ArcNodec*nextarc;	 			//指向下一条弧的指针
+	struct ArcNode *nextarc;	 			//指向下一条弧的指针
 	InfoType *info;						//该弧相关信息指针
 }ArcNode;
 typedef struct VNode {						//头结点
 	VertexType data;					//顶点信息
 	ArcNode *firstarc;					//指向依附该定点的第一条弧的指针
-}VoNode, AdjList[MAX_VERTEX_NUM];
+}VNode, AdjList[MAX_VERTEX_NUM];
 typedef struct {
 	AdjList vertices;					//存放头结点的数组
 	int vexnum, arcnum;					//图的顶点数和弧数
 	GraphKind kind;						//图的种类
 }ALGraph;
+
 
 //------ 有向图的十字链表（Orthogonal List）表示 -------
 typedef struct ArcBox {
@@ -52,6 +54,7 @@ typedef struct {
 	VexNode xlist[MAX_VERTEX_NUM];				//表头向量
 	int vexnum, arcnum;					//有向图的顶点数和弧数
 }OLGraph;
+
 
 //-------- 无向图的邻接多重表存储表示形式 --------
 typedef enum {unvisited, visited} VisitIf;
@@ -73,7 +76,9 @@ typedef struct {
 
 //----------------- 函数声明 -------------------
 Status CreateUDN(MGraph &G);
+Status CreateUDG(MGraph &G);
 Status CreateDN(MGraph &G);
+Status CreateDG(MGraph &G);
 int LocateVex(MGraph G, VertexType u);
 int LocateVex(OLGraph G, VertexType u);
 void Input(InfoType * &info);
