@@ -107,3 +107,25 @@ Status Delete(BiTree &p)
     }
     return TRUE;
 }
+
+//对以*p为根的二叉排序树作右旋处理，处理之后p指向新的树的根结点
+//即旋转处理之前的左子树的根结点
+void R_Rotate(BSTree &p)
+{
+    BSTree lc;
+    lc = p->lchild;         //lc指向的*p的左子树根结点
+    p->lchild = lc->rchild; //lc的右子树挂在p的左子树下
+    lc->rchild = p;         //p挂在lc的左子树下
+    p = lc;                 //p指向新的根结点
+}
+
+//对以*p为根的二叉排序树作左旋处理，处理之后p指向新的树的根结点
+//即旋转处理之前的右子树的根结点
+void L_Roatate(BSTree &p)
+{
+    BSTree rc;
+    rc = p->rchild;
+    p->rchild = rc->lchild;
+    rc->lchild = p;
+    p = rc;
+}

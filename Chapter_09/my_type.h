@@ -11,6 +11,7 @@
 
 typedef int Status;
 typedef int KeyType;
+typedef bool Boolean;
 
 typedef struct 
 {
