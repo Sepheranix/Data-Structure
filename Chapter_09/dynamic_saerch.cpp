@@ -449,3 +449,53 @@ Status DisplayBTree(BTree T)
     }
     return OK;
 }
+
+//在非空双链树T中查找关键字等于K的记录， 若存在，则返回指向该关键字的指针
+//否则返回空指针
+Record *SearchDLTree(DLTree T, KeysType K)
+{
+    DLTree p;
+    p = T->first;
+    int i = 0;
+    while (p && i < K.num) {
+        while (p && p->symbol != K.ch[i])
+            p = p->next;    //查找关键字的第i位
+        if (p && i < K.num - 1)
+            p = p->first;   //准备查找下一位
+        ++i;
+    }       //查找结束
+    if (!p) //查找不成功
+        return NULL;
+    else    //查找成功
+        return p->infoptr;
+}
+
+
+//在键树T中查找关键字等于K的记录
+Record *SearchTrie(TrieTree T, KeysType K)
+{
+    TrieTree p = T;
+    for (int i = 0; p && p->kind == BRANCH && i < K.num; p = p->bh.ptr[ord(K.ch[i])], ++i);
+        //ord求字符在字母表中的序号
+        if (p && p->kind == LEAF && p->lf.K.num == K.num && p->lf.K.ch == K.ch)   //查找成功
+            return p->lf.infoptr;
+        else
+            return NULL;
+}
+
+int ord(char ch)
+{
+    /*  a-z：97-122
+        A-Z：65-90
+        0-9：48-57*/
+    int res;
+    if (ch == '$')
+        res = 0;
+    else if (ch >= 'a' && ch <= 'z')
+        res = (int)ch - (int)'a' + 1;
+    else if (ch >= 'A' && ch <= 'Z')
+        res = (int)ch - (int)'A' + 1;
+    else
+        res = -1;
+    return res;
+}

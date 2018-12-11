@@ -57,3 +57,36 @@ Status NewRoot(BTree &T, BTree q, KeyType x, BTree ap);
 Status CreateBTree(BTree &T, char *filename);
 Status DisplayBTree(BTree T);
 
+
+/* 键树，双链树存储表示 */
+#define MAXKEYLEN 16        //关键字最大长度
+typedef struct {
+    char ch[MAXKEYLEN];
+    int num;                //关键字长度
+} KeysType;                 //关键字类型
+
+typedef enum {LEAF, BRANCH} NodeKind;   //结点类型：{叶子，分支}
+
+typedef struct DLTNode {
+    char symbol;            //关键字字符
+    struct DLTNode *next;   //指向下一个兄弟结点
+    NodeKind kind;
+    union {
+        Record *infoptr;     //叶子结点的记录指针
+        struct DLTNode *first;  //分支结点的第一个孩子结点
+    };
+} DLTNode, *DLTree;         //双链树的类型
+
+Record *SearchDLTree(DLTree T, KeysType K);
+
+/* 键树，Trie存储表示 */
+typedef struct TrieNode {
+    NodeKind kind;
+    union {
+        struct { KeysType K; Record *infoptr; } lf;     //叶子结点
+        struct { TrieNode *ptr[27]; int num; } bh;      //分支结点
+    };
+} TrieNode, *TrieTree;  //键树类型
+
+Record *SearchTrie(TrieTree T, KeysType K);
+int ord(char ch);

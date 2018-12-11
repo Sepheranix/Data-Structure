@@ -11,7 +11,7 @@ typedef struct BiTNode {	//定义二叉树的结点
 typedef BiTree SElemType;
 typedef BiTree QElemType;
 
-Status CreateBiTree(BiTree &T);
+//Status CreateBiTree(BiTree &T);
 Status display(TElemType e);
 Status PreOrderTraverse(BiTree T, Status (*visit)(TElemType e));
 Status InOrderTraverse(BiTree T, Status (*visit)(TElemType e));
