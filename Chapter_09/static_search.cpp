@@ -13,7 +13,7 @@ Status CreateTable(SSTable &ST, int n, char *filename)
 {
     FILE *pFile;
     ST.length = n;
-    ST.elem = (ElemType *)malloc((ST.length + 1) * (ElemType));
+    ST.elem = (ElemType *)malloc((ST.length + 1) * sizeof(ElemType));
     if (ST.elem)
         return ERROR;   //分配内存失败
 
