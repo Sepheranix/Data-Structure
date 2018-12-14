@@ -1,12 +1,14 @@
 #include <stdio.h>
-#include <iostream>
+#include <stdlib.h>
+#include <math.h>
 
-using namespace std;
+#include "my_headers.h"
 
-int main(int argc, char const *argv[])
+int main()
 {
-	cout << "Hello World!";
+	HashTable H;
+	CreateHashTable(H, "HASH_TABLE.txt");
+	DisplayHashTable(H);
 
-	getchar();
 	return 0;
 }

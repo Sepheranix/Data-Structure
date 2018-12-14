@@ -488,14 +488,14 @@ int ord(char ch)
     /*  a-z：97-122
         A-Z：65-90
         0-9：48-57*/
-    int res;
+    int ord;
     if (ch == '$')
-        res = 0;
+        ord = 0;
     else if (ch >= 'a' && ch <= 'z')
-        res = (int)ch - (int)'a' + 1;
+        ord = (int)ch - (int)'a' + 1;
     else if (ch >= 'A' && ch <= 'Z')
-        res = (int)ch - (int)'A' + 1;
+        ord = (int)ch - (int)'A' + 1;
     else
-        res = -1;
-    return res;
+        ord = -1;
+    return ord;
 }

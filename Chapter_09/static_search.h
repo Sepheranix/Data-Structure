@@ -11,7 +11,7 @@ typedef struct {
 typedef BiTree SOSTree;         //次优查找树
 
 Status CreateTable(SSTable &ST, int n, char *filename);
-void DestoryTable(SSTable &ST);
+//void DestoryTable(SSTable &ST);
 int Search_Seq(SSTable ST, KeyType key);
 int Search_Bin(SSTable ST, KeyType key);
 void SecondOptimal(BiTree &T, ElemType R[], float sw[], int low, int high);

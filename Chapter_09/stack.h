@@ -19,4 +19,4 @@ Status Push(SqStack &S, SElemType e);
 Status Pop(SqStack &S, SElemType &e);
 Status StackTraverse(SqStack S, Status (*visit)(SElemType));
 Status visit_display(SElemType e);
-Status display_char(SElemType e);
+//Status display_char(SElemType e);

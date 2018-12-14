@@ -21,4 +21,4 @@ Status GetHead(LinkQueue Q, QElemType &e);
 Status EnQueue(LinkQueue &Q, QElemType e);
 Status DeQueue(LinkQueue &Q, QElemType &e);
 Status QueueTraverse(LinkQueue Q, Status (*visit)(QElemType &e));
-Status visit_display(QElemType &e);
+//Status visit_display(QElemType &e);
